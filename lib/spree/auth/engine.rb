@@ -65,9 +65,9 @@ module Spree
         paths["app/controllers"] << "lib/controllers/backend"
         paths["app/views"] << "lib/views/backend"
       end
-
+      
+      paths["app/controllers"] << "lib/controllers/frontend"
       if self.frontend_available?
-        paths["app/controllers"] << "lib/controllers/frontend"
         paths["app/views"] << "lib/views/frontend"
       end
 
