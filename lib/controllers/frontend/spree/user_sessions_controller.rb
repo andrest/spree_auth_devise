@@ -29,14 +29,11 @@ class Spree::UserSessionsController < Devise::SessionsController
         }
       end
     else
-      respond_to do |format|
-        format.html {
-          flash.now[:error] = t('devise.failure.invalid')
-          render :new
-        }
-        format.js {
-          render :json => { error: t('devise.failure.invalid') }, status: :unprocessable_entity
-        }
+      user = Spree::User.find_by(:email => params[:email])
+      unless user.nil?
+        if user.valid_password? params[:password]
+          render :json => '{"api_key": "#{user.spree_api_key}"}'
+        end
       end
     end
   end
